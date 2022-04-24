@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import AppCard from '../components/AppCard';
 import AppTab from '../components/AppTab';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { updatePastLunches } from '../reducers/lunches';
+import { updatePast } from '../reducers/lunches';
 import { useGetPastQuery } from '../services/flightApi';
 
 const PastLunchesP = () => {
@@ -11,14 +11,16 @@ const PastLunchesP = () => {
   const { data, error, isLoading } = useGetPastQuery('')
 
   useEffect(() => {
-    if (data) dispatch(updatePastLunches(data))
+    if (data) dispatch(updatePast(data))
   }, [data])
 
   if (isLoading) return <>loading...</>;
 
-  return <AppTab>
-    {pastLunches.map((el, index) => {
-      return <AppCard key={el.id} id={el.id} name={el.name} date={el.date_local} />
+  return <AppTab title="Past Lunches">
+    {pastLunches.map((el) => {
+      return <div key={el.id}>
+        <AppCard id={el.id} name={el.name} date={el.date_local} />
+      </div>
     })}
   </AppTab>
 }

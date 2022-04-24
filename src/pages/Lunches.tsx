@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { useGetUpcomingQuery } from '../services/flightApi';
-import { updateAllLunches } from '../reducers/lunches';
+import { updateAll } from '../reducers/lunches';
 
 import AppCard from '../components/AppCard';
 import AppTab from '../components/AppTab';
@@ -12,14 +12,17 @@ const LunchesP = () => {
   const { data, error, isLoading } = useGetUpcomingQuery('')
 
   useEffect(() => {
-    if (data) dispatch(updateAllLunches(data))
+    if (data) dispatch(updateAll(data))
   }, [data])
+
 
   if (isLoading) return <>loading...</>;
 
-  return <AppTab>
+  return <AppTab title="Lunches">
     {allLunches.map((el) => {
-      return <AppCard key={el.id} id={el.id} name={el.name} date={el.date_local} />
+      return <div key={el.id}>
+        <AppCard id={el.id} name={el.name} date={el.date_local} />
+      </div>
     })}
   </AppTab>
 }

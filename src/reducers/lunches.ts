@@ -1,67 +1,56 @@
 import { LunchesT } from '../services/types';
-import { combineReducers } from 'redux'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-const allLunchesState: LunchesT[] = []
-const myLunchesState: LunchesT[] = []
-const pastLunchesState: LunchesT[] = []
+interface StateT {
+  all: LunchesT[],
+  my: LunchesT[],
+  past: LunchesT[],
+}
+type KeyT = 'all' | 'my' | 'past';
 
-const allLunchesSlice = createSlice({
-  name: 'all',
-  initialState: allLunchesState,
+const initialState: StateT = {
+  all: [],
+  my: [],
+  past: []
+};
+
+const lunchesSlice = createSlice({
+  name: 'lunches',
+  initialState,
   reducers: {
-    updateAllLunches(state, action: PayloadAction<any>) {
-      action.payload.map((el: LunchesT) => state.push({
-        id: el.id,
-        name: el.name,
-        date_local: el.date_local
-      }))
+    updateAll(state, action: PayloadAction<any>) {
+      addMany(state, 'all', action.payload)
+    },
+    updatePast(state, action: PayloadAction<any>) {
+      addMany(state, 'past', action.payload)
+    },
+    updateMy(state, action: PayloadAction<any>) {
+      if (Array.isArray(action.payload)) addMany(state, 'my', action)
+      else addOne(state.my, action.payload)
     },
   },
 })
 
-const pastLunchesSlice = createSlice({
-  name: 'past',
-  initialState: pastLunchesState,
-  reducers: {
-    updatePastLunches(state, action: PayloadAction<any>) {
-      action.payload.map((el: LunchesT) => state.push({
-        id: el.id,
-        name: el.name,
-        date_local: el.date_local
-      }))
-    },
-  },
-})
 
-const myLunchesSlice = createSlice({
-  name: 'my',
-  initialState: myLunchesState,
-  reducers: {
-    updateMyLunches(state, action: PayloadAction<any>) {
-      if (Array.isArray(action.payload)) {
-        action.payload.map((el: LunchesT) => state.push({
-          id: el.id,
-          name: el.name,
-          date_local: el.date_local
-        }))
-      } else state.push({
-        id: action.payload.id,
-        name: action.payload.name,
-        date_local: action.payload.date_local
-      })
+// Selectors 
+const addMany = (state: StateT, key: KeyT, payload: any) => {
 
-    },
-  },
-})
+  payload.map((el: LunchesT) => {
+    const find = state[key].find(e => e.id === el.id);
+    if (!find) state[key].push({
+      id: el.id,
+      name: el.name,
+      date_local: el.date_local
+    });
+  })
+};
 
-export const { updateAllLunches } = allLunchesSlice.actions
-export const { updateMyLunches } = myLunchesSlice.actions
-export const { updatePastLunches } = pastLunchesSlice.actions
+const addOne = (state: LunchesT[], payload: any) => {
 
-export default combineReducers({
-  [allLunchesSlice.name]: allLunchesSlice.reducer,
-  [myLunchesSlice.name]: myLunchesSlice.reducer,
-  [pastLunchesSlice.name]: pastLunchesSlice.reducer
-})
+  const find = state.find(e => e.id === payload.id);
+  if (!find) state.push(payload);
+};
+
+export const { updateAll, updateMy, updatePast } = lunchesSlice.actions
+export default lunchesSlice.reducer;
 

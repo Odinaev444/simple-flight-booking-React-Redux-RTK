@@ -23,10 +23,9 @@ export interface CardT {
   name: string;
   date: string;
   id: string;
-  key: string;
 }
-const AppCard = ({ name, date, id, key }: CardT) => {
-  return <Link to={`/${id}`} key={key}>
+const AppCard = ({ name, date, id }: CardT) => {
+  return <Link to={`/${id}`} >
     <Card elevation={3}  >
       <CardTitle>{name}</CardTitle>
       <CardParagraph>{date}</CardParagraph>
