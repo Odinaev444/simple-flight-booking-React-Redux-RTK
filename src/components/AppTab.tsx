@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 import { useDrop } from 'react-dnd';
 import { ItemTypes, ItemKeyT } from '../constants/dnd';
 import { LunchesT } from '../services/types';
+import AppCardLoader from './AppCardLoader';
 
 const Title = styled('h3')({
   textAlign: 'center',
@@ -27,10 +28,11 @@ interface TabT {
   title: string;
   targetType: ItemKeyT;
   children: React.ReactNode;
+  loading: boolean;
   onDrop?: (item: LunchesT) => void;
 }
 
-const AppTab = ({ title, children, targetType, onDrop }: TabT) => {
+const AppTab = ({ title, children, targetType, loading, onDrop }: TabT) => {
 
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes[targetType],
@@ -43,7 +45,7 @@ const AppTab = ({ title, children, targetType, onDrop }: TabT) => {
   return <div>
     <Title>{title}</Title>
     <Container style={{ background: isOver ? '#e9f5ff' : '' }} ref={drop}>
-      {children}
+      {loading ? <AppCardLoader /> : children}
     </Container>
   </div>
 }

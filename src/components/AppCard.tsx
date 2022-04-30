@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 import { useDrag } from 'react-dnd';
 import { ItemTypes, ItemKeyT } from '../constants/dnd';
 
-const Card = styled(Paper)( ({opacity}:{opacity:number})=>({
+const Card = styled(Paper)(({ opacity }: { opacity: number }) => ({
   height: 150,
   marginBottom: 20,
   padding: "15px 0px 0px 10px",
   cursor: 'pointer',
-  background: "#a2c79e"  ,
-  opacity: !opacity ? 1 :opacity 
+  background: "#a2c79e",
+  opacity: !opacity ? 1 : opacity
 }));
 
 const CardTitle = styled('h1')({
@@ -30,19 +30,19 @@ export interface CardT {
   itemType: ItemKeyT;
   draggable: boolean;
 }
-const AppCard = ({ name, date, id, draggable,itemType }: CardT) => {
+const AppCard = ({ name, date, id, draggable, itemType }: CardT) => {
 
-  const [{isDragging}, drag] = useDrag({
+  const [{ isDragging }, drag] = useDrag({
     type: ItemTypes[itemType],
-    item: {id, name},
-    canDrag: () => draggable ,
-    
+    item: { id, name },
+    canDrag: () => draggable,
+
     collect: monitor => ({
-      isDragging:  !! monitor.isDragging(),
+      isDragging: !!monitor.isDragging(),
     })
   })
-  return <Link to={`/${id}`} style={{textDecoration: 'none'}} >
-    <Card ref={drag} opacity={isDragging ? 0.5 : 1 } elevation={3}  >
+  return <Link to={`lunch/${id}`} style={{ textDecoration: 'none' }} >
+    <Card ref={drag} opacity={isDragging ? 0.5 : 1} elevation={3}  >
       <CardTitle>{name}</CardTitle>
       <CardParagraph>{date}</CardParagraph>
     </Card>

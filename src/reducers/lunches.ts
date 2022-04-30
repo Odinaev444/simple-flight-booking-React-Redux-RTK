@@ -38,11 +38,11 @@ const lunchesSlice = createSlice({
     },
     bookFlight(state, action: PayloadAction<any>) {
       moveCard(state, 'all', 'my', action.payload)
-      showAlert(state, 'success', `Flight ${action.payload.id} was added`,)
+      showAlert(state, 'success', `Flight ${action.payload.id} was added`)
     },
     cancelFlight(state, action: PayloadAction<any>) {
       moveCard(state, 'my', 'all', action.payload)
-      showAlert(state, 'error', `Flight ${action.payload.id} has been canceled`)
+      showAlert(state, 'info', `Flight ${action.payload.id} has been canceled`)
     },
     closeAlert(state) {
       state.alert = {
@@ -69,10 +69,12 @@ const addMany = (state: StateT, key: KeyT, payload: any) => {
   })
 };
 
-const addOne = (state: LunchesT[], payload: LunchesT) => {
+const addOne = (state: LunchesT[], payload: LunchesT, updateCache?: (item: LunchesT) => void) => {
 
   const find = state.find(e => e.id === payload.id);
-  if (!find) state.push(payload);
+  if (!find) {
+    state.push(payload);
+  }
 };
 
 const moveCard = (state: StateT, from: KeyT, to: KeyT, payload: { id: string }) => {
@@ -85,6 +87,7 @@ const moveCard = (state: StateT, from: KeyT, to: KeyT, payload: { id: string }) 
 };
 
 const showAlert = (state: StateT, type: SeverityT, message: string) => {
+
   state.alert = {
     isOpen: true,
     type,

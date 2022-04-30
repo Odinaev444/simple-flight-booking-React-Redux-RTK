@@ -11,7 +11,7 @@ const LunchesP = () => {
 
   const allLunches = useAppSelector((state) => state.lunches.all);
   const dispatch = useAppDispatch();
-  const { data, error, isLoading } = useGetUpcomingQuery('');
+  const { data, isLoading } = useGetUpcomingQuery('');
 
   const cancel = (item: LunchesT) => confirm('Are you sure ?') === true ? dispatch(cancelFlight(item)) : undefined;
 
@@ -19,9 +19,7 @@ const LunchesP = () => {
     if (data) dispatch(addToAll(data))
   }, [data])
 
-  if (isLoading) return <>loading...</>;
-
-  return <AppTab onDrop={cancel} targetType="MY_LUNCH" title="Lunches">
+  return <AppTab loading={!!isLoading} onDrop={cancel} targetType="MY_LUNCH" title="Lunches">
     {allLunches.map((el) => {
       return <div key={el.id}>
         <AppCard draggable itemType="LUNCH" id={el.id} name={el.name} date={el.date_local} />
