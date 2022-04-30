@@ -1,27 +1,30 @@
 import React, { useEffect } from 'react';
+
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { useGetUpcomingQuery } from '../services/flightApi';
-import { updateAll } from '../reducers/lunches';
-
+import { addToAll, cancelFlight } from '../reducers/lunches';
+import { LunchesT } from '../services/types';
 import AppCard from '../components/AppCard';
 import AppTab from '../components/AppTab';
 
 const LunchesP = () => {
-  const allLunches = useAppSelector((state) => state.lunches.all)
-  const dispatch = useAppDispatch()
-  const { data, error, isLoading } = useGetUpcomingQuery('')
+
+  const allLunches = useAppSelector((state) => state.lunches.all);
+  const dispatch = useAppDispatch();
+  const { data, error, isLoading } = useGetUpcomingQuery('');
+
+  const cancel = (item: LunchesT) => confirm('Are you sure ?') === true ? dispatch(cancelFlight(item)) : undefined;
 
   useEffect(() => {
-    if (data) dispatch(updateAll(data))
+    if (data) dispatch(addToAll(data))
   }, [data])
-
 
   if (isLoading) return <>loading...</>;
 
-  return <AppTab title="Lunches">
+  return <AppTab onDrop={cancel} targetType="MY_LUNCH" title="Lunches">
     {allLunches.map((el) => {
       return <div key={el.id}>
-        <AppCard id={el.id} name={el.name} date={el.date_local} />
+        <AppCard draggable itemType="LUNCH" id={el.id} name={el.name} date={el.date_local} />
       </div>
     })}
   </AppTab>

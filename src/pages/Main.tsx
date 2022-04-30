@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import Lunches from './Lunches';
 import MyLunches from './MyLunches';
 import PastLunchesP from './PastLunches';
+import AppAlert from '../components/AppAlert';
 
 const Container = styled(Grid)({
   maxWidth: 1000,
@@ -31,6 +32,7 @@ const Main = () => {
       <Lunches />
       <MyLunches />
     </TabContainer>
+    <AppAlert />
   </Container>
 }
 

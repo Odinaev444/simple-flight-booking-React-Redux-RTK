@@ -29,6 +29,8 @@
     "@mui/material": "^5.6.1",
     "@reduxjs/toolkit": "^1.8.1",
     "react": "^18.0.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.0.0",
     "react-redux": "^8.0.0",
     "react-router-dom": "^6.3.0"
