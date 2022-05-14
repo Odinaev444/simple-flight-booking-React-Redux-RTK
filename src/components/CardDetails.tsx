@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 
-import { LunchesT } from '../services/types';
+import { Launches } from '../services/types';
 
 const Card = styled(Paper)({
   height: 'auto',
@@ -26,7 +26,7 @@ const CardParagraph = styled('h3')({
   fontSize: 20,
 });
 
-const AppCardDetails = ({ id, name, date_local, flight_number, rocket }: LunchesT) => {
+const CardDetails = ({ id, name, date_local, flight_number, rocket }: Launches) => {
 
   const navigate = useNavigate()
   const handleClick = () => navigate('/')
@@ -43,5 +43,5 @@ const AppCardDetails = ({ id, name, date_local, flight_number, rocket }: Lunches
   </Card>
 }
 
-export default AppCardDetails;
+export default CardDetails;
 

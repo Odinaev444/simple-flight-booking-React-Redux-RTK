@@ -1,7 +1,7 @@
-export type ItemKeyT = 'LUNCH'|'PAST_LUNCH'|'MY_LUNCH';
+export type ItemKey = 'LAUNCH' | 'PAST_LAUNCH' | 'MY_LAUNCH';
 
-export const ItemTypes:{[key in ItemKeyT]:string } = {
-  LUNCH: "lunch",
-  PAST_LUNCH: "past_lunch",
-  MY_LUNCH: "my_lunches",
+export const ItemTypes: { [key in ItemKey]: string } = {
+  LAUNCH: "launch",
+  PAST_LAUNCH: "past_launch",
+  MY_LAUNCH: "my_launches",
 }

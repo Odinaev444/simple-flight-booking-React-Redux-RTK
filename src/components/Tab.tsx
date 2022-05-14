@@ -1,9 +1,9 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import { useDrop } from 'react-dnd';
-import { ItemTypes, ItemKeyT } from '../constants/dnd';
-import { LunchesT } from '../services/types';
-import AppCardLoader from './AppCardLoader';
+import { ItemTypes, ItemKey } from '../constants/dnd';
+import { Launches } from '../services/types';
+import AppCardLoader from './CardLoader';
 
 const Title = styled('h3')({
   textAlign: 'center',
@@ -24,19 +24,19 @@ const Container = styled('div')({
   }
 });
 
-interface TabT {
+interface Tab {
   title: string;
-  targetType: ItemKeyT;
+  targetType: ItemKey;
   children: React.ReactNode;
   loading: boolean;
-  onDrop?: (item: LunchesT) => void;
+  onDrop?: (item: Launches) => void;
 }
 
-const AppTab = ({ title, children, targetType, loading, onDrop }: TabT) => {
+const AppTab = ({ title, children, targetType, loading, onDrop }: Tab) => {
 
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes[targetType],
-    drop: (item: LunchesT) => onDrop?.(item),
+    drop: (item: Launches) => onDrop?.(item),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     })

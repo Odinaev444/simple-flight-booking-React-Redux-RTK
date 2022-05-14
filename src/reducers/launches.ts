@@ -1,17 +1,17 @@
-import { LunchesT } from '../services/types';
+import { Launches } from '../services/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AlertT, SeverityT } from '../components/AppAlert';
+import { AlertT, SeverityT } from '../components/Alert';
 
-interface StateT {
-  all: LunchesT[];
-  my: LunchesT[];
-  past: LunchesT[];
+interface State {
+  all: Launches[];
+  my: Launches[];
+  past: Launches[];
   alert: AlertT,
 }
 
-type KeyT = 'all' | 'my' | 'past';
+type Key = 'all' | 'my' | 'past';
 
-const initialState: StateT = {
+const initialState: State = {
   all: [],
   my: [],
   past: [],
@@ -22,8 +22,8 @@ const initialState: StateT = {
   }
 };
 
-const lunchesSlice = createSlice({
-  name: 'lunches',
+const launchesSlice = createSlice({
+  name: 'launches',
   initialState,
   reducers: {
     addToAll(state, action: PayloadAction<any>) {
@@ -57,9 +57,9 @@ const lunchesSlice = createSlice({
 
 // Selectors 
 
-const addMany = (state: StateT, key: KeyT, payload: any) => {
+const addMany = (state: State, key: Key, payload: any) => {
 
-  payload.map((el: LunchesT) => {
+  payload.map((el: Launches) => {
     const find = state[key].find(e => e.id === el.id);
     if (!find) state[key].push({
       id: el.id,
@@ -69,7 +69,7 @@ const addMany = (state: StateT, key: KeyT, payload: any) => {
   })
 };
 
-const addOne = (state: LunchesT[], payload: LunchesT, updateCache?: (item: LunchesT) => void) => {
+const addOne = (state: Launches[], payload: Launches, updateCache?: (item: Launches) => void) => {
 
   const find = state.find(e => e.id === payload.id);
   if (!find) {
@@ -77,16 +77,16 @@ const addOne = (state: LunchesT[], payload: LunchesT, updateCache?: (item: Lunch
   }
 };
 
-const moveCard = (state: StateT, from: KeyT, to: KeyT, payload: { id: string }) => {
+const moveCard = (state: State, from: Key, to: Key, payload: { id: string }) => {
 
-  state[from] = state[from].filter((el: LunchesT) => {
+  state[from] = state[from].filter((el: Launches) => {
     const find = el.id === payload.id;
     if (find) addOne(state[to], el)
     return !find;
   })
 };
 
-const showAlert = (state: StateT, type: SeverityT, message: string) => {
+const showAlert = (state: State, type: SeverityT, message: string) => {
 
   state.alert = {
     isOpen: true,
@@ -95,6 +95,6 @@ const showAlert = (state: StateT, type: SeverityT, message: string) => {
   }
 }
 
-export const { addToAll, addToPast, addToMy, bookFlight, cancelFlight, closeAlert } = lunchesSlice.actions
-export default lunchesSlice.reducer;
+export const { addToAll, addToPast, addToMy, bookFlight, cancelFlight, closeAlert } = launchesSlice.actions
+export default launchesSlice.reducer;
 

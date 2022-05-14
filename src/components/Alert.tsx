@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Snackbar, Alert } from '@mui/material';
 import { useAppSelector, useAppDispatch } from '../hooks';
-import { closeAlert } from '../reducers/lunches';
+import { closeAlert } from '../reducers/launches';
 
 
 export type SeverityT = 'error' | 'warning' | 'info' | 'success';
@@ -14,7 +14,7 @@ export interface AlertT {
 
 const AppAlert = () => {
   const dispatch = useAppDispatch();
-  const { isOpen, type, message } = useAppSelector((state) => state.lunches.alert);
+  const { isOpen, type, message } = useAppSelector((state) => state.launches.alert);
 
   const handleClose = () => dispatch(closeAlert())
 

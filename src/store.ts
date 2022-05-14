@@ -2,13 +2,13 @@ import { configureStore } from '@reduxjs/toolkit'
 // Or from '@reduxjs/toolkit/query/react'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { flightApi } from './services/flightApi';
-import lunches from './reducers/lunches';
+import launches from './reducers/launches';
 
 export const store = configureStore({
   reducer: {
     // Add the generated reducer as a specific top-level slice
     [flightApi.reducerPath]: flightApi.reducer,
-    lunches
+    launches
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.

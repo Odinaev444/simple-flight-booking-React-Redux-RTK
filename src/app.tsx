@@ -6,14 +6,14 @@ import {
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 
-import Main from './pages/Main';
-import Lucnh from './pages/Lunch';
+import MainPage from './pages/MainPage';
+import LaucnhPage from './pages/LaunchPage';
 
 const App = () => {
   return <DndProvider backend={HTML5Backend}>
     <Routes>
-      <Route path="/" element={<Main />} />
-      <Route path="/lunch/:id" element={<Lucnh />} />
+      <Route path="/" element={<MainPage />} />
+      <Route path="/launch/:id" element={<LaucnhPage />} />
       <Route path="*" element={<h1>Not found</h1>} />
     </Routes>
   </DndProvider>

@@ -2,10 +2,10 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 
-import Lunches from './Lunches';
-import MyLunches from './MyLunches';
-import PastLunchesP from './PastLunches';
-import AppAlert from '../components/AppAlert';
+import Launches from './Launches';
+import MyLaunches from './MyLaunches';
+import PastLaunches from './PastLaunches';
+import AppAlert from '../components/Alert';
 
 const Container = styled(Grid)({
   maxWidth: 1000,
@@ -28,9 +28,9 @@ const Main = () => {
   return <Container >
     <Title>Explore the Space</Title>
     <TabContainer>
-      <PastLunchesP />
-      <Lunches />
-      <MyLunches />
+      <PastLaunches />
+      <Launches />
+      <MyLaunches />
     </TabContainer>
     <AppAlert />
   </Container>

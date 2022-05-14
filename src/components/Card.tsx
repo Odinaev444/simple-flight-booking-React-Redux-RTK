@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { Link } from 'react-router-dom';
 import { useDrag } from 'react-dnd';
-import { ItemTypes, ItemKeyT } from '../constants/dnd';
+import { ItemTypes, ItemKey } from '../constants/dnd';
 
 const Card = styled(Paper)(({ opacity }: { opacity: number }) => ({
   height: 150,
@@ -27,7 +27,7 @@ export interface CardT {
   name: string;
   date: string;
   id: string;
-  itemType: ItemKeyT;
+  itemType: ItemKey;
   draggable: boolean;
 }
 const AppCard = ({ name, date, id, draggable, itemType }: CardT) => {
@@ -41,7 +41,7 @@ const AppCard = ({ name, date, id, draggable, itemType }: CardT) => {
       isDragging: !!monitor.isDragging(),
     })
   })
-  return <Link to={`lunch/${id}`} style={{ textDecoration: 'none' }} >
+  return <Link to={`launch/${id}`} style={{ textDecoration: 'none' }} >
     <Card ref={drag} opacity={isDragging ? 0.5 : 1} elevation={3}  >
       <CardTitle>{name}</CardTitle>
       <CardParagraph>{date}</CardParagraph>
